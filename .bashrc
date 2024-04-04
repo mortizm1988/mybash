@@ -694,3 +694,20 @@ export NVM_DIR="$HOME/.nvm"
 alias ll='ls -la'
 alias stata='/usr/local/stata17/stata-mp'
 alias xtata='/usr/local/stata17/xstata-mp'
+alias anaconda= '/home/miortiz/anaconda3/bin/anaconda-navigator'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/miortiz/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/miortiz/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/miortiz/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/miortiz/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

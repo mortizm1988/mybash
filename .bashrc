@@ -684,3 +684,13 @@ else
 	echo "can't found the autojump script"
 fi
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+### My alias
+
+alias ll='ls -la'
+alias stata='/usr/local/stata17/stata-mp'
+alias xtata='/usr/local/stata17/xstata-mp'

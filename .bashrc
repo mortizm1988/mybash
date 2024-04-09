@@ -692,11 +692,34 @@ alias ll='ls -la'
 alias stata='/usr/local/stata17/stata-mp'
 alias xtata='/usr/local/stata17/xstata-mp'
 
-marp2pdf() {
-    npx @marp-team/marp-cli@latest "${1}.md" --pdf
-    xdg-open "${1}.pdf" &
-}
 
+marp_convert() {
+    # Comprueba si se han proporcionado dos argumentos
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: marp2pdf <filename without .md> <format: pdf or html>"
+        return 1
+    fi
+
+    # Extrae los argumentos en variables para mayor claridad
+    local file_name="${1}"
+    local format="${2}"
+
+    # Comprueba si el formato es válido
+    if [[ "$format" != "pdf" && "$format" != "html" ]]; then
+        echo "Error: Format must be 'pdf' or 'html'."
+        return 1
+    fi
+
+    # Ejecuta Marp CLI con el formato especificado
+    npx @marp-team/marp-cli@latest "$file_name.md" --$format
+
+    # Abre el archivo generado solo si el formato es PDF
+    if [ "$format" = "pdf" ]; then
+        xdg-open "$file_name.$format" &
+    elif [ "$format" = "html" ]; then
+         xdg-open "$file_name.$format" &
+    fi
+}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/miortiz/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

@@ -709,17 +709,25 @@ marp_convert() {
         echo "Error: Format must be 'pdf' or 'html'."
         return 1
     fi
+    
+    # Guarda el directorio actual
+    local current_dir="$(pwd)"
 
-    # Ejecuta Marp CLI con el formato especificado
-    npx @marp-team/marp-cli@latest "$file_name.md" --$format
+    # Cambia al directorio donde se encuentra el archivo Markdown
+    # Esto asume que el archivo y las imágenes están en el mismo directorio
+    cd "$(dirname "$file_name")"
 
-    # Abre el archivo generado solo si el formato es PDF
-    if [ "$format" = "pdf" ]; then
-        xdg-open "$file_name.$format" &
-    elif [ "$format" = "html" ]; then
-         xdg-open "$file_name.$format" &
+    # Ejecuta Marp CLI en el directorio del archivo
+    npx @marp-team/marp-cli@latest "$(basename "$file_name").md" --$format --allow-local-files
+
+    # Intenta abrir el archivo generado
+    if [[ "$format" == "pdf" || "$format" == "html" ]]; then
+        xdg-open "$(basename "$file_name").$format" &
     fi
-}
+
+    # Vuelve al directorio original
+    cd "$current_dir"
+    }
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/miortiz/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

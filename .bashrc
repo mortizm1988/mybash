@@ -219,9 +219,6 @@ alias sha1='openssl sha1'
 
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
-# KITTY - alias to be able to use kitty features when connecting to remote servers(e.g use tmux on remote server)
-
-alias kssh="kitty +kitten ssh"
 
 #######################################################
 # SPECIAL FUNCTIONS
@@ -694,7 +691,11 @@ export NVM_DIR="$HOME/.nvm"
 alias ll='ls -la'
 alias stata='/usr/local/stata17/stata-mp'
 alias xtata='/usr/local/stata17/xstata-mp'
-alias anaconda= '/home/miortiz/anaconda3/bin/anaconda-navigator'
+
+marp2pdf() {
+    npx @marp-team/marp-cli@latest "${1}.md" --pdf
+    xdg-open "${1}.pdf" &
+}
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

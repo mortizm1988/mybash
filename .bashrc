@@ -730,6 +730,40 @@ marp_convert() {
     # Vuelve al directorio original
     cd "$current_dir"
     }
+pandoc_convert() {
+    # Comprueba si se han proporcionado dos argumentos
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: pandoc <filename without .md> <format: pdf or html>"
+        return 1
+    fi
+
+    # Extrae los argumentos en variables para mayor claridad
+    local file_name="${1}"
+    local format="${2}"
+
+    # Comprueba si el formato es válido
+    if [[ "$format" != "pdf" && "$format" != "html" ]]; then
+        echo "Error: Format must be 'pdf' or 'html'."
+        return 1
+    fi
+    
+    # Guarda el directorio actual
+    local current_dir="$(pwd)"
+
+    # Cambia al directorio donde se encuentra el archivo Markdown
+    # Esto asume que el archivo y las imágenes están en el mismo directorio
+    cd "$(dirname "$file_name")"
+
+    # Ejecuta Marp CLI en el directorio del archivo
+    pandoc "$(basename "$file_name").md" -o "$(basename "$file_name")."$format"" 
+    # Intenta abrir el archivo generado
+    if [[ "$format" == "pdf" || "$format" == "html" ]]; then
+        xdg-open "$(basename "$file_name").$format" &
+    fi
+
+    # Vuelve al directorio original
+    cd "$current_dir"
+    }
 
 
 # >>> conda initialize >>>

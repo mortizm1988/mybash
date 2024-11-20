@@ -378,12 +378,38 @@ case "$PROMPT_COMMAND" in
 esac
 alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
 
-# FZF seach and open file
+# FZF search and open file with preview
 fe() {
-local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && xdg-open "${files[@]}"
+  local files
+  local program
+
+  # Use fzf with a preview pane
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0 \
+    --preview '[[ $(file --mime {}) =~ binary ]] && echo "{} (binary file)" || (cat {} | head -n 20)' \
+    --preview-window=right:60%:wrap))
+
+  [[ -z "$files" ]] && return
+
+  # Prompt the user to specify a program
+  echo "Enter the program to open the file(s) with (leave empty for default):"
+  read -r program
+
+  # Iterate over selected files
+  for file in "${files[@]}"; do
+    if [[ -n "$program" ]]; then
+      # Open the file with the specified program
+      "$program" "$file" &
+    else
+      # Use default logic based on file type
+      case "$file" in
+        *.tex) texniccenter "$file" & ;;
+        *.txt|*.md) code "$file" & ;;  # Example: Open text or markdown files in VSCode
+        *) xdg-open "$file" & ;;       # Default to xdg-open for other file types
+      esac
+    fi
+  done
 }
+
 
 ##########################
 ###### Design ############

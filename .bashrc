@@ -512,7 +512,12 @@ case "$PROMPT_COMMAND" in
 esac
 alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
 
-
+# FZF open file
+fe() {
+local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && xdg-open "${files[@]}"
+}
 
 # Install Starship - curl -sS https://starship.rs/install.sh | sh
 

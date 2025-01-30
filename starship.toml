@@ -9,20 +9,10 @@ $git_branch\
 $git_status\
 [](fg:#FCA17D bg:#86BBD8)\
 $c\
-$elixir\
-$elm\
-$golang\
-$gradle\
-$haskell\
-$java\
+$python\
+$quarto\
 $julia\
-$nodejs\
-$nim\
-$rust\
-$scala\
 [](fg:#86BBD8 bg:#06969A)\
-$docker_context\
-[](fg:#06969A bg:#33658A)\
 $time\
 [ ](fg:#33658A)\
 """
@@ -43,7 +33,7 @@ disabled = false
 # represents the current operating system
 [os]
 style = "bg:#9A348E"
-disabled = true # Disabled by default
+disabled = false # Disabled by default
 
 [directory]
 style = "bg:#DA627D"
@@ -74,15 +64,6 @@ symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style)'
 
-[elixir]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
@@ -92,20 +73,6 @@ format = '[ $symbol $branch ]($style)'
 [git_status]
 style = "bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
-
-[golang]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[gradle]
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[haskell]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
 
 [java]
 symbol = " "
@@ -122,20 +89,13 @@ symbol = ""
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
-[nim]
-symbol = "󰆥 "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+[python]
+symbol = " "
+pyenv_version_name = true
 
-[rust]
-symbol = ""
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+[quarto]
+symbol = "⨁ "
 
-[scala]
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
 
 [time]
 disabled = false
